@@ -1201,7 +1201,7 @@ Uses the same algorithm as java's default Random constructor."
 
   Optional key:
   `:type` --  `:full` for the full SVD
-              `:value` for SVD values only
+              `:values` for SVD values only
   "
   [^Matrix A & {:keys [type] :or {type :sparse}}]
   (let [[^DoubleMatrix U ^DoubleMatrix L ^DoubleMatrix V] (if (= type :full)
@@ -1753,7 +1753,7 @@ Uses the same algorithm as java's default Random constructor."
          {:S (:values (svd m :type :values))}
        
        :else 
-         (let [{:keys [left right values]} (svd m)
+         (let [{:keys [left right values]} (svd m :type :full)
                r (if (:U return) {:U left} {})
                r (if (:S return) (merge r {:S values}) r)
                r (if (:V return) (merge r {:V right}) r)
